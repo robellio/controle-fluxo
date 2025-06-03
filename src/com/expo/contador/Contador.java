@@ -8,21 +8,35 @@ public class Contador {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Digite o primeiro parâmetro");
+        boolean continuar = true;
 
-        int parametroum = scanner.nextInt();
-        scanner.nextLine();
-        System.out.println("Digite o segundo parâmetro");
-        int parametroDois = scanner.nextInt();
-        scanner.nextLine();
+        while (continuar){
+            System.out.println("\n===== Comparação =====");
+            System.out.println("Digite o primeiro parâmetro ou sair para encerrar:");
 
-        try {
-            contar(parametroum, parametroDois);
-        } catch (ParametrosInvalidosException exception) {
-            System.out.println(exception.getMessage());
-        } finally {
-            scanner.close();
+            String dadosRecebidos = scanner.nextLine();
+
+            if (dadosRecebidos.equalsIgnoreCase("sair")){
+                continuar = false;
+                continue;
+            }
+
+            try {
+                int parametroUm = Integer.parseInt(dadosRecebidos);
+                System.out.println("Digite o Segundo Parâmetro:");
+                int parametroDois = Integer.parseInt(scanner.nextLine());
+
+                contar(parametroUm, parametroDois);
+
+            } catch (NumberFormatException e) {
+                System.out.println("Número inválido! Digite números inteiros.");
+            } catch (ParametrosInvalidosException e) {
+                System.out.println(e.getMessage());
+            }
         }
+
+        System.out.println("O Programa foi encerrado.");
+        scanner.close();
 
     }
 
@@ -37,7 +51,6 @@ public class Contador {
         for (int i = 1; i <= contagem; i++) {
             System.out.println("Imprimindo o número " + i);
         }
-
     }
 
 }
